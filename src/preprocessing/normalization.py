@@ -2,7 +2,7 @@ import pandas as pd
 import os
 from src.utils import constants as cs
 
-def normalization(path):
+def normalize(path):
     df = pd.read_csv(path)
     df[cs.index] = df.index
     max_voltage = df[cs.voltage].max()
