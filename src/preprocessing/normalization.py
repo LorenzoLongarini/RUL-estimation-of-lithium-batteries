@@ -4,7 +4,7 @@ from src.utils import constants as cs
 
 def normalization(path):
     df = pd.read_csv(path)
-    df['Index'] = df.index
+    df[cs.index] = df.index
     max_voltage = df[cs.voltage].max()
     min_voltage = df[cs.voltage].min()
     t0_voltage = 3.8
@@ -17,7 +17,7 @@ def normalization(path):
         mean_voltage = group[cs.voltage].mean()
         std_voltage = group[cs.voltage].std()
         group[cs.voltage] = (group[cs.voltage]- mean_voltage) / std_voltage
-        selected_rows = group[(group['Index'] >= t0_index) & (group['Index'] <= t1_index)]
+        selected_rows = group[(group[cs.index] >= t0_index) & (group[cs.index] <= t1_index)]
         hi_v = selected_rows[cs.voltage].sum()
         # hi_v = np.trapz(selected_rows[voltage])
     cycle = group[cs.c_index].iloc[0]
