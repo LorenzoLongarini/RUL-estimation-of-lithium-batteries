@@ -43,6 +43,7 @@ white_list = [
     discharge_cap]
 
 charge_list = [
+    test_time,
     step_time,
     step_index,
     c_index,
@@ -52,6 +53,7 @@ charge_list = [
 ]
 
 discharge_list = [
+    test_time,
     step_time,
     step_index,
     c_index,
