@@ -4,7 +4,7 @@ from src.utils import constants as cs
 from datetime import datetime
 
 # merge all files in specific folder
-def merge_files (data_dir: str = 'src/dataset/CS2_38', file_name:str = 'CS2_38', is_charge = True):
+def merge_files (data_dir: str = '', file_name:str = '', is_charge = True):
     # define new data frame
     cleaned = pd.DataFrame()
     
