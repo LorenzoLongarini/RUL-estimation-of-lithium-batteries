@@ -10,6 +10,8 @@ discharge_cap:str = 'Discharge_Capacity(Ah)'
 channel:str = 'Channel'
 dataset_root:str = 'src/dataset'
 ds_cleaned:str = f'{dataset_root}/cleaned'
+ds_hi:str = f'{dataset_root}/hi'
+
 index:str = 'Index'
 
 charge_indexes = [
@@ -43,7 +45,7 @@ white_list = [
     discharge_cap]
 
 charge_list = [
-    date_time,
+    test_time,
     step_time,
     step_index,
     c_index,
@@ -53,7 +55,6 @@ charge_list = [
 ]
 
 discharge_list = [
-    date_time,
     step_time,
     step_index,
     c_index,

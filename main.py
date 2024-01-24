@@ -8,11 +8,14 @@ import pandas as pd
 def main():
     ds_root = os.listdir(cs.dataset_root)
     # merge files foreach datasets
+    for folder in ds_root:
+        if folder.startswith('CS2'):
+            merge_files(data_dir = f'{cs.dataset_root}/{folder}/ordered', file_name = f'{folder}.csv')   
+            merge_files(data_dir = f'{cs.dataset_root}/{folder}/ordered', file_name = f'{folder}.csv', is_charge=False)   
+    # ds_root = os.listdir(cs.ds_cleaned)
     # for folder in ds_root:
-    #     if folder.startswith('CS2'):
-    #         merge_files(data_dir = f'{cs.dataset_root}/{folder}/ordered', file_name = f'{folder}.csv')   
-    #         merge_files(data_dir = f'{cs.dataset_root}/{folder}/ordered', file_name = f'{folder}.csv', is_charge=False)   
-    make_hi(path=f'{cs.ds_cleaned}/charge-CS2_33.csv')
+    #     if folder.startswith('charge'):
+    #         make_hi(path=f'{cs.ds_cleaned}/{folder}', file_name=folder)
     # df = pd.read_csv(f'{cs.ds_cleaned}/hi.csv')
     
     # mean = df['hi_v'].mean()
