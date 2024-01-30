@@ -4,7 +4,8 @@ from src.utils import constants as cs
 import numpy as np
 
 def make_hi(path, file_name):
-    hi = pd.DataFrame()
+    hiv = pd.DataFrame()
+    hii = pd.DataFrame()
 
     df_hiv = pd.read_csv(path)
     df_hiv[cs.index] = df_hiv.index
@@ -19,7 +20,7 @@ def make_hi(path, file_name):
         cycle = group[cs.c_index].iloc[0]
 
         row = pd.DataFrame([{'hi_v': hi_v_hour, 'cycle': cycle}])
-        hi = pd.concat([hi, row])
+        hiv = pd.concat([hiv, row])
 
     for key, group in df_hii.groupby(cs.c_index):
         hi_i = np.trapz(group[cs.current], x=group[cs.test_time])
@@ -27,14 +28,15 @@ def make_hi(path, file_name):
         cycle = group[cs.c_index].iloc[0]
 
         # Aggiungi la colonna hi_i solo se è presente nel DataFrame
-        if 'hi_i' in hi.columns:
-            hi.loc[hi['cycle'] == cycle, 'hi_i'] = hi_i_hour
-        else:
-            row = pd.DataFrame([{'hi_i': hi_i_hour, 'cycle': cycle}])
-            hi = pd.concat([hi, row])
+        # if 'hi_i' in hi.columns:
+        #     hi.loc[hi['cycle'] == cycle, 'hi_i'] = hi_i_hour
+        # else:
+        row = pd.DataFrame([{'hi_i': hi_i_hour, 'cycle': cycle}])
+        hii = pd.concat([hii, row])
 
     # Riempi eventuali valori mancanti con 0
-    hi = hi.fillna(0)
+    # hi = hi.fillna(0)
 
     # Salva il DataFrame come CSV senza l'indice
-    hi.to_csv(f'{cs.ds_hi}/hi-{file_name}', index=False)
+    hiv.to_csv(f'{cs.ds_hi}/hiv-{file_name}', index=False)
+    hii.to_csv(f'{cs.ds_hi}/hii-{file_name}', index=False)

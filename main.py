@@ -5,15 +5,6 @@ from src.preprocessing.hi import make_hi
 import pandas as pd
 
 
-def main():
-    make_files()
-    make_his()
-    
-
-if __name__ == '__main__':
-    main()
-
-
 def make_files():
     ds_root = os.listdir(cs.dataset_root)
     # merge files foreach datasets
@@ -27,3 +18,11 @@ def make_his():
     for folder in ds_root:
         if folder.startswith('charge'):
             make_hi(path=f'{cs.ds_cleaned}/{folder}', file_name=folder)
+
+def main():
+    make_files()
+    make_his()
+    
+
+if __name__ == '__main__':
+    main()
