@@ -20,10 +20,9 @@ def make_his():
             make_hi(path=f'{cs.ds_cleaned}/{folder}', file_name=folder)
 
 def main():
-    make_files()
+    # make_files()
     make_his()
     
+
 if __name__ == '__main__':
     main()
-
-

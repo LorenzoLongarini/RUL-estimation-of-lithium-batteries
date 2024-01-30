@@ -55,6 +55,7 @@ charge_list = [
 ]
 
 discharge_list = [
+    test_time,
     step_time,
     step_index,
     c_index,
@@ -62,3 +63,5 @@ discharge_list = [
     voltage,
     discharge_cap
 ]
+
+seq_length = 50
