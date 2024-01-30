@@ -8,9 +8,11 @@ voltage:str = 'Voltage(V)'
 charge_cap:str = 'Charge_Capacity(Ah)'
 discharge_cap:str = 'Discharge_Capacity(Ah)'
 channel:str = 'Channel'
-dataset_root = 'src/dataset'
-ds_cleaned = f'{dataset_root}/cleaned'
-index = 'Index'
+dataset_root:str = 'src/dataset'
+ds_cleaned:str = f'{dataset_root}/cleaned'
+ds_hi:str = f'{dataset_root}/hi'
+
+index:str = 'Index'
 
 charge_indexes = [
     1,
@@ -43,6 +45,7 @@ white_list = [
     discharge_cap]
 
 charge_list = [
+    test_time,
     step_time,
     step_index,
     c_index,

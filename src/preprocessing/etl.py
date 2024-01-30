@@ -4,7 +4,7 @@ from src.utils import constants as cs
 from datetime import datetime
 
 # merge all files in specific folder
-def merge_files (data_dir: str = 'src/dataset/CS2_38', file_name:str = 'CS2_38', is_charge = True):
+def merge_files (data_dir: str = 'src/dataset/CS2_38', file_name:str = 'CS2_38', is_charge:bool = True)-> None: 
     # define new data frame
     cleaned = pd.DataFrame()
     
@@ -16,6 +16,10 @@ def merge_files (data_dir: str = 'src/dataset/CS2_38', file_name:str = 'CS2_38',
         for sheet_fname in sheet_fnames:
             df = pd.read_excel(os.path.join(data_dir, filename), sheet_name=sheet_fname)
             df = df[cs.white_list]
+            # convert datetime
+            df[cs.date_time] = df[cs.date_time].apply(lambda x: datetime.strptime(str(x), "%Y-%m-%d %H:%M:%S").timestamp())
+            # find negative rows
+            df = df[~((df[cs.test_time] < 0) | (df[cs.step_time] < 0) | (df[cs.date_time] < 0))]
             # find max cycle value for each sheet
             max_cindex = cleaned[cs.c_index].max() if not cleaned.empty else 0
             # update total cycle index
@@ -30,14 +34,25 @@ def merge_files (data_dir: str = 'src/dataset/CS2_38', file_name:str = 'CS2_38',
                 cond_curr = (cleaned[cs.current] > 0.55)
                 # reduce dataframe
                 cleaned = cleaned[~(cond_sindex & cond_curr)]
-                # for key, group in cleaned.groupby(cs.c_index):
-                #     diffs =  group[cs.current].diff().abs() 
-                #     mask = ~(diffs > 0.0502)
-                #     cleaned.loc[cleaned[cs.c_index] == key, :] = cleaned.loc[cleaned[cs.c_index] == key, :][mask]
                 cleaned = cleaned[cs.charge_list]
+                cleaned = clean_data(cleaned = cleaned)
                 cleaned.to_csv(os.path.join(cs.ds_cleaned, f'charge-{file_name}'), index=False)    
             else:
                 # consider only step index 7
-                # cleaned = cleaned[~cleaned[cs.step_index].isin(cs.discharge_indexes)]
+                cleaned = cleaned[~cleaned[cs.step_index].isin(cs.discharge_indexes)]
                 cleaned = cleaned[cs.discharge_list]
+                clean_data(cleaned = cleaned)
                 cleaned.to_csv(os.path.join(cs.ds_cleaned, f'discharge-{file_name}'), index=False)    
+
+
+
+
+def clean_data(cleaned):
+    list = []
+    for key,data in cleaned.groupby(cs.c_index):
+        if not any(data[cs.step_index] == 4):
+            list.append(data[cs.c_index])
+    for i in list:
+        cleaned = cleaned.drop(cleaned[cleaned[cs.c_index] == i.unique()[0]].index)
+    cleaned = cleaned.reset_index(drop=True)
+    return cleaned
