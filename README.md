@@ -245,11 +245,13 @@
 
 <p>In the context of online estimation of State of Health (SOH), the Long Short-Term Memory Recurrent Neural Network (LSTM-RNN), Recurrent Neural Network with Gated Recurrent Unit (GRU-RNN), and Simple Recurrent Neural Network (Sim-RNN) were compared for effectiveness and performance. All algorithms were configured with the same structure and parameters, except for the main working layers of RNN and GRU.</p>
 
+<img src="src/img/parametri.png" alt="">
+
 <p>Despite GRU-RNN requiring more training epochs, LSTM-RNN showed slightly better performance. SOH estimations closely followed the actual values, with estimation errors within 2% for all three networks. The proposed model demonstrated accurate online health estimation based on data extracted from the charging process.</p>
 
 <p>The results of the state of the art are as follows:</p>
 
-<img src="percorso_dell_immagine" alt="Testo alternativo">
+<img src="src/img/risultati.png" alt="">
 
 
 
