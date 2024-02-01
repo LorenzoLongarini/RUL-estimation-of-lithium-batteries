@@ -367,8 +367,22 @@
 
 <p>This process prepared the dataset for subsequent analysis by removing irrelevant data and ensuring the coherence and reliability of the remaining data.</p>
 
+<h2>ETL and HI Processing Code</h2>
 
+<p>The code described in <code>preprocessing/etl</code> and <code>preprocessing/hi</code> will generate two pairs of files for each dataset:</p>
 
+<ul>
+  <li>A first file related to charge data, containing values associated with step indices 2 and 4 for each cycle.</li>
+  <li>A second file related to discharge data, containing values related to step index 7 for each cycle.</li>
+</ul>
+
+<p>This subdivision was adopted to simplify subsequent processing phases, particularly for calculating health indicators and streamline State of Health (SOH) calculation.</p>
+
+<p>The resulting files allowed us to create graphs to visualize the trends of voltage and current, focusing on the cycles of interest. The analysis of the obtained graphs enables observation of how these trends reflect the state of the art in the field, providing valuable insights into the behavior and performance of the examined system.</p>
+
+<img src="src/img/cs2_35_voltage_trend.png" alt="CS2-35 Voltage trend">
+
+<img src="src/img/cs2_35_current_trend.png" alt="CS2-35 Current trend">
 
 
 
