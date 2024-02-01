@@ -128,7 +128,7 @@
   <mn>100</mn>
 </math>
 
-<p>Where \(C_N\) represents the nominal capacity, and \(C_P\) is the current capacity of the battery.</p>
+<p>Where (C_N) represents the nominal capacity, and (C_P) is the current capacity of the battery.</p>
 
 <p>To estimate the Remaining Useful Life (RUL), health indicators related to voltage and current are calculated:</p>
 
