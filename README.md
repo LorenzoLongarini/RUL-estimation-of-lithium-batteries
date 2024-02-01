@@ -316,5 +316,23 @@
     </tbody>
   </table>
 
+<h1 id="tools">Tools</h1>
+
+<p>The project was developed using Visual Studio Code (VSCode) in a Python environment, leveraging various key libraries to ensure effective implementation and data analysis. Below are the main libraries used and their role in the project context:</p>
+
+<h2>Pandas: Data Manipulation</h2>
+<p>Pandas is a data analysis library that provides flexible and high-performance data structures, particularly DataFrames. In our project, Pandas was crucial for dataset cleaning. Through its ability to handle heterogeneous data, Pandas allowed us to perform filtering operations, eliminate missing data, and create health indicators necessary for model training.</p>
+
+<h2>Tensorflow: Model Creation</h2>
+<p>Tensorflow is an open-source framework for machine learning and AI. Its versatility and power made it the ideal choice for creating the prediction model. Through Tensorflow, we defined the architecture of our neural network and managed the entire training process. Its flexibility allowed us to adapt the model to the specific needs of our project.</p>
+
+<h2>NumPy: Efficient Data Handling</h2>
+<p>NumPy is a fundamental library for handling multidimensional arrays. In our context, Numpy was used to efficiently handle the model's input data. Its functionalities allowed us to perform complex mathematical operations and organize data into optimized structures, contributing to the proper feeding of the model during training and evaluation phases.</p>
+
+<h2>Matplotlib: Visualizations and Graphs</h2>
+<p>Matplotlib is a data visualization library that offers a wide range of graphical options. We used Matplotlib to create meaningful charts and visualizations. Through this library, we were able to analyze model results, plot curves, and visualize data patterns, enhancing our understanding of the predictive model's behavior.</p>
+
+
+
 
 
