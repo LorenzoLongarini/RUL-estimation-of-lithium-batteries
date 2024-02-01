@@ -359,14 +359,14 @@
 <p>The plot related to the values of HIv concerning the number of cycles performed is shown in Figure:</p>
 
 <div style="text-align: center;">
-    <img src="src/img/HIV.png" alt="" width="500">
+    <img src="src/img/HIV.png" alt="" width="450">
 </div>
 
 <p>The obtained values have been filtered to eliminate any potential outliers.</p>
 <p>Regarding the trend of HIi, there was no reliance on any state-of-the-art reference, as all related trends are based on the NASA dataset. However, we can visualize the trend of the current Health Indicator concerning the cycles, as shown in Figure.</p>
 
 <div style="text-align: center;">
-    <img src="src/img/HII.png" alt="" width="500">
+    <img src="src/img/HII.png" alt="" width="450">
 </div>
 
 <h1 id="lstm">LSTM</h1>
@@ -385,7 +385,7 @@
 
 <p>By integrating these elements, LSTM efficiently manages both short-term and long-term memory, enabling more advanced learning and decision processes in neural networks.</p>
 
-<img src="src/img/arch_lstm.png" alt="Architecture of LSTM">
+<img src="src/img/lstm_drawio.png" alt="Architecture of LSTM">
 
 <h2 id="lstm-gates">LSTM Gates</h2>
 
