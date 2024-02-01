@@ -332,6 +332,42 @@
 <h2>Matplotlib: Visualizations and Graphs</h2>
 <p>Matplotlib is a data visualization library that offers a wide range of graphical options. We used Matplotlib to create meaningful charts and visualizations. Through this library, we were able to analyze model results, plot curves, and visualize data patterns, enhancing our understanding of the predictive model's behavior.</p>
 
+<h1 id="methods-and-techniques">Methods and Techniques</h1>
+
+<h2>ETL (Extract, Transform, Load)</h2>
+
+<p>ETL, an acronym for Extract, Transform, Load, is a fundamental process in data management. This methodology is used for the efficient movement of data from various sources to the destination system, making it accessible and usable for analysis. The process is divided into three key phases:</p>
+
+<ul>
+  <li><strong>Extraction (Extract):</strong> Data is extracted from the original sources, which can include databases, files, or other data sources.</li>
+  <li><strong>Transformation (Transform):</strong> Data undergoes a series of transformations, including filtering, cleaning, dimensionality reduction, or restructuring to conform to the destination system's needs.</li>
+  <li><strong>Loading (Load):</strong> Transformed data is loaded into the destination system, making it easily accessible for analysis and further processing.</li>
+</ul>
+
+<p>Prior to proceeding with data analysis and processing, an ETL operation was performed to simplify the structure of the original dataset. The initial data was organized in different Excel files, each corresponding to a specific date of charge and discharge cycles. Each Excel file contained three sheets:</p>
+
+<ul>
+  <li>An "Info" sheet containing some general information.</li>
+  <li>One or more "Channel" sheets with the actual information recorded in approximately 30-second steps.</li>
+  <li>A "Statistics" sheet containing some information related to the statistics of the "Channel" sheets.</li>
+</ul>
+
+<p>During the ETL process, the following steps were executed:</p>
+
+<ul>
+  <li><strong>Elimination of unnecessary sheets:</strong> All sheets other than "Channel" were eliminated.</li>
+  <li><strong>Data transformations:</strong> Various transformations were applied to eliminate outliers and misleading values from the dataset, including:</li>
+    <ul>
+      <li>Deletion of logs with negative time variables.</li>
+      <li>Removal of the current spike during the constant current (CC) to constant voltage (CV) charging phase.</li>
+      <li>Elimination of significant differences between consecutive current values.</li>
+      <li>Removal of cycles with significantly different capacities compared to neighboring cycles.</li>
+    </ul>
+</ul>
+
+<p>This process prepared the dataset for subsequent analysis by removing irrelevant data and ensuring the coherence and reliability of the remaining data.</p>
+
+
 
 
 
