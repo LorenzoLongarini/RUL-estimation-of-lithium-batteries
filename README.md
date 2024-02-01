@@ -32,7 +32,7 @@
 <p>The datasets we refer to range from CS2-33 to CS2-38 and contain detailed information about charge and discharge cycles performed on each cell. These data are valuable for our analysis of the Remaining Useful Life (RUL) of lithium-ion batteries, allowing us to develop a predictive model based on real experiences and specific charge/discharge process data.</p>
 
 <h3>Data Structure:</h3>
-<table>
+<table align="center">
   <thead>
     <tr>
       <th>Data</th>
@@ -245,7 +245,7 @@
 
 <p>In the context of online estimation of State of Health (SOH), the Long Short-Term Memory Recurrent Neural Network (LSTM-RNN), Recurrent Neural Network with Gated Recurrent Unit (GRU-RNN), and Simple Recurrent Neural Network (Sim-RNN) were compared for effectiveness and performance. All algorithms were configured with the same structure and parameters, except for the main working layers of RNN and GRU.</p>
 
-<table>
+<table align="center">
     <thead>
       <tr>
         <th>Parameter</th>
@@ -288,7 +288,33 @@
 
 <p>The results of the state of the art are as follows:</p>
 
-<img src="src/img/risultati.png" alt="">
+<table align="center">
+    <caption>RMSE and MAE for different models</caption>
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>RMSE (%)</th>
+        <th>MAE (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>LSTM</td>
+        <td>0.5623</td>
+        <td>0.5746</td>
+      </tr>
+      <tr>
+        <td>GRU</td>
+        <td>0.6421</td>
+        <td>0.7494</td>
+      </tr>
+      <tr>
+        <td>RNN</td>
+        <td>0.6345</td>
+        <td>0.6400</td>
+      </tr>
+    </tbody>
+  </table>
 
 
 
