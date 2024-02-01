@@ -343,6 +343,31 @@
 
 <p>This approach allows us to clearly visualize the trend of the battery's state of health throughout its operational life, both during charging and discharging.</p>
 
+<h2 id="health-indicator-calculation">Calculation of Health Indicators</h2>
+
+<p>Utilizing the reprocessed dataset from the ETL phase, we proceeded with the calculation of health indicators for both voltage and current, as defined in the state of the art.</p>
+
+<p>For each dataset, the code provided in <code>path/codice</code> will generate a pair of CSV files containing the values of health indicators for voltage (HIv) and current (HIi) for each cycle:</p>
+
+<ul>
+  <li>A file with the values of HIv for each cycle.</li>
+  <li>A file with the values of HIi for each cycle.</li>
+</ul>
+
+<p>This separation was adopted to simplify the creation of charts showing the trend of health indicators, as demonstrated in the state of the art. Additionally, considering that in the state of the art, LSTM training initially involves both health indicators and later only with voltage-related health indicators, this division facilitates the process.</p>
+
+<p>The plot related to the values of HIv concerning the number of cycles performed is shown in Figure:</p>
+
+<div style="text-align: center;">
+    <img src="src/img/HIV.png" alt="" width="500">
+</div>
+
+<p>The obtained values have been filtered to eliminate any potential outliers.</p>
+<p>Regarding the trend of HIi, there was no reliance on any state-of-the-art reference, as all related trends are based on the NASA dataset. However, we can visualize the trend of the current Health Indicator concerning the cycles, as shown in Figure.</p>
+
+<div style="text-align: center;">
+    <img src="src/img/HII.png" alt="" width="500">
+</div>
 
 <h1 id="lstm">LSTM</h1>
 
