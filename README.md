@@ -8,7 +8,7 @@
   <li><a href="#state-of-the-art">State of the Art</a></li>
   <li><a href="#tools">Tools</a></li>
   <li><a href="#methods-and-techniques">Methods and Techniques</a></li>
-  <li><a href="#lstm-model-efficiency">Efficiency of Long Short-Term Memory Model</a></li>
+  <li><a href="#lstm">LSTM</a></li>
   <li><a href="#usage">Usage</a></li>
   <li><a href="#our-proposal">Our Proposal</a></li>
   <li><a href="#esn-echo-state-network">ESN (Echo State Network)</a></li>
@@ -32,7 +32,7 @@
 <p>The datasets we refer to range from CS2-33 to CS2-38 and contain detailed information about charge and discharge cycles performed on each cell. These data are valuable for our analysis of the Remaining Useful Life (RUL) of lithium-ion batteries, allowing us to develop a predictive model based on real experiences and specific charge/discharge process data.</p>
 
 <h3>Data Structure:</h3>
-<table>
+<table align="center">
   <thead>
     <tr>
       <th>Data</th>
@@ -117,23 +117,14 @@
 
 <p>Initially, the concept of State of Health (SOH) is defined as the ratio of the battery's current capacity to its nominal capacity, expressed as a percentage using the formula:</p>
 
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mtext>SOH</mtext> 
-  <mo>=</mo>
-  <mfrac>
-    <mi>C<sub>P</sub></mi>
-    <mi>C<sub>N</sub></mi>
-  </mfrac>
-  <mo>&#x00D7;</mo>
-  <mn>100</mn>
-</math>
+<p>SOH = C<sub>P</sub>/C<sub>N</sub> × 100</p>
 
-<p>Where \(C_N\) represents the nominal capacity, and \(C_P\) is the current capacity of the battery.</p>
+<p>Where C<sub>N</sub> represents the nominal capacity, and C<sub>P</sub> is the current capacity of the battery.</p>
 
 <p>To estimate the Remaining Useful Life (RUL), health indicators related to voltage and current are calculated:</p>
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mtext>HI</mtext><msub><mi>v</mi><mi>i</mi></msub>
+  <msub><mi>HI</mi><mi>v</mi></msub>
   <mo>=</mo>
   <mo>&#x222B;</mo>
   <msubsup>
@@ -148,10 +139,10 @@
   <mi>dt</mi>
 </math>
 
-<p>Calculated as the integral between (t_0) and (t_1) of the voltage, where (t_0) is when the voltage is 3.8 V, and (t_1) is when it's 4.2 V. Meanwhile:</p>
+<p>Calculated as the integral between t<sub>0</sub> and t<sub>1</sub> of the voltage, where t<sub>0</sub> is when the voltage is 3.8 V, and t<sub>1</sub> is when it's 4.2 V. Meanwhile:</p>
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mtext>HI</mtext><msub><mi>i</mi><mi>i</mi></msub>
+  <msub><mi>HI</mi><mi>i</mi></msub>
   <mo>=</mo>
   <mo>&#x222B;</mo>
   <msubsup>
@@ -166,92 +157,252 @@
   <mi>dt</mi>
 </math>
 
-<p>Calculated as the integral between (t_0) and (t_1) of the current, where (t_0) marks the beginning of the charging period, and (t_1) marks its conclusion.</p>
+<p>Calculated as the integral between t<sub>0</sub> and t<sub>1</sub> of the current, where t<sub>0</sub> marks the beginning of the charging period, and t<sub>1</sub> marks its conclusion.</p>
 
 <p>Three different model architectures were explored: Sim-RNN, LSTM, and GRU. These models were trained on datasets CS2-36 and CS2-38 and later tested on CS2-33, CS2-35, and CS2-37.</p>
 
 <p>Performance analysis involved using the metrics MAE and RMSE, defined respectively as:</p>
 
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mtext>RMSE</mtext>
-  <mo>=</mo>
-  <msqrt>
-    <mfrac>
-      <mn>1</mn>
-      <mi>m</mi>
-    </mfrac>
-    <munderover>
-      <mo>&#x2211;</mo>
-      <mrow>
-        <mi>i</mi>
-        <mo>=</mo>
-        <mn>1</mn>
-      </mrow>
-      <mi>m</mi>
-    </munderover>
-    <mo>&#x221A;</mo>
-    <mo stretchy="false">(</mo>
-    <mrow>
-      <msup>
-        <mrow>
-          <mtext>SOH</mtext><sub><mi>i</mi></sub>
-        </mrow>
-        <mo>2</mo>
-      </msup>
-      <mo>-</mo>
-      <mo>&#x00AF;</mo>
-      <mo stretchy="false">(</mo>
-      <mrow>
-        <mtext>SOH</mtext><sub><mi>i</mi><mo>*</mo></sub>
-      </mrow>
-      <mo>)</mo>
-      <mo>2</mo>
-    </mrow>
-    <mo stretchy="false">)</mo>
-  </msqrt>
-</math>
+<div style="text-align: center;">
+    <img src="src/img/formule.png" alt="" width="200">
+</div>
 
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mtext>MAE</mtext>
-  <mo>=</mo>
-  <mfrac>
-    <mn>1</mn>
-    <mi>m</mi>
-  </mfrac>
-  <munderover>
-    <mo>&#x2211;</mo>
-    <mrow>
-      <mi>i</mi>
-      <mo>=</mo>
-      <mn>1</mn>
-    </mrow>
-    <mi>m</mi>
-  </munderover>
-  <mo>|</mo>
-  <mrow>
-    <mtext>SOH</mtext><sub><mi>i</mi></sub>
-    <mo>-</mo>
-    <mo>&#x00AF;</mo>
-    <mo stretchy="false">(</mo>
-    <mrow>
-      <mtext>SOH</mtext><sub><mi>i</mi><mo>*</mo></sub>
-    </mrow>
-    <mo>)</mo>
-  </mrow>
-  <mo>|</mo>
-</math>
-
-<p>Where (SOH_i^*) represents the prediction of SOH for the \(i\)-th example, and \(\text{SOH}_i\) is the \(i\)-th actual value.</p>
+<p>Where SOH<sub>i</sub><sup>*</sup> represents the prediction of SOH for the i-th example, and SOH<sub>i</sub> is the i-th actual value.</p>
 
 <p>In the context of online estimation of State of Health (SOH), the Long Short-Term Memory Recurrent Neural Network (LSTM-RNN), Recurrent Neural Network with Gated Recurrent Unit (GRU-RNN), and Simple Recurrent Neural Network (Sim-RNN) were compared for effectiveness and performance. All algorithms were configured with the same structure and parameters, except for the main working layers of RNN and GRU.</p>
 
-<img src="src/img/parametri.png" alt="">
+<table align="center">
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Optimizer</td>
+        <td>Adam</td>
+      </tr>
+      <tr>
+        <td>Loss function</td>
+        <td>MSE</td>
+      </tr>
+      <tr>
+        <td>Activation funcion</td>
+        <td>RELU</td>
+      </tr>
+      <tr>
+        <td>Computational nodes in a row</td>
+        <td>128</td>
+      </tr>
+      <tr>
+        <td>Batch size</td>
+        <td>64</td>
+      </tr>
+      <tr>
+        <td>Learning rate</td>
+        <td>0.00005</td>
+      </tr>
+      <tr>
+        <td>Epochs</td>
+        <td>15,000</td>
+      </tr>
+    </tbody>
+  </table>
 
 <p>Despite GRU-RNN requiring more training epochs, LSTM-RNN showed slightly better performance. SOH estimations closely followed the actual values, with estimation errors within 2% for all three networks. The proposed model demonstrated accurate online health estimation based on data extracted from the charging process.</p>
 
 <p>The results of the state of the art are as follows:</p>
 
-<img src="src/img/risultati.png" alt="">
+<table align="center">
+    <caption>RMSE and MAE for different models</caption>
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>RMSE (%)</th>
+        <th>MAE (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>LSTM</td>
+        <td>0.5623</td>
+        <td>0.5746</td>
+      </tr>
+      <tr>
+        <td>GRU</td>
+        <td>0.6421</td>
+        <td>0.7494</td>
+      </tr>
+      <tr>
+        <td>RNN</td>
+        <td>0.6345</td>
+        <td>0.6400</td>
+      </tr>
+    </tbody>
+  </table>
+
+<h1 id="tools">Tools</h1>
+
+<p>The project was developed using Visual Studio Code (VSCode) in a Python environment, leveraging various key libraries to ensure effective implementation and data analysis. Below are the main libraries used and their role in the project context:</p>
+
+<h2>Pandas: Data Manipulation</h2>
+<p>Pandas is a data analysis library that provides flexible and high-performance data structures, particularly DataFrames. In our project, Pandas was crucial for dataset cleaning. Through its ability to handle heterogeneous data, Pandas allowed us to perform filtering operations, eliminate missing data, and create health indicators necessary for model training.</p>
+
+<h2>Tensorflow: Model Creation</h2>
+<p>Tensorflow is an open-source framework for machine learning and AI. Its versatility and power made it the ideal choice for creating the prediction model. Through Tensorflow, we defined the architecture of our neural network and managed the entire training process. Its flexibility allowed us to adapt the model to the specific needs of our project.</p>
+
+<h2>NumPy: Efficient Data Handling</h2>
+<p>NumPy is a fundamental library for handling multidimensional arrays. In our context, Numpy was used to efficiently handle the model's input data. Its functionalities allowed us to perform complex mathematical operations and organize data into optimized structures, contributing to the proper feeding of the model during training and evaluation phases.</p>
+
+<h2>Matplotlib: Visualizations and Graphs</h2>
+<p>Matplotlib is a data visualization library that offers a wide range of graphical options. We used Matplotlib to create meaningful charts and visualizations. Through this library, we were able to analyze model results, plot curves, and visualize data patterns, enhancing our understanding of the predictive model's behavior.</p>
+
+
+
+<h1 id="methods-and-techniques">Methods and Techniques</h1>
+
+<h2>ETL (Extract, Transform, Load)</h2>
+
+<p>ETL, an acronym for Extract, Transform, Load, is a fundamental process in data management. This methodology is used for the efficient movement of data from various sources to the destination system, making it accessible and usable for analysis. The process is divided into three key phases:</p>
+
+<ul>
+  <li><strong>Extraction (Extract):</strong> Data is extracted from the original sources, which can include databases, files, or other data sources.</li>
+  <li><strong>Transformation (Transform):</strong> Data undergoes a series of transformations, including filtering, cleaning, dimensionality reduction, or restructuring to conform to the destination system's needs.</li>
+  <li><strong>Loading (Load):</strong> Transformed data is loaded into the destination system, making it easily accessible for analysis and further processing.</li>
+</ul>
+
+<p>Prior to proceeding with data analysis and processing, an ETL operation was performed to simplify the structure of the original dataset. The initial data was organized in different Excel files, each corresponding to a specific date of charge and discharge cycles. Each Excel file contained three sheets:</p>
+
+<ul>
+  <li>An "Info" sheet containing some general information.</li>
+  <li>One or more "Channel" sheets with the actual information recorded in approximately 30-second steps.</li>
+  <li>A "Statistics" sheet containing some information related to the statistics of the "Channel" sheets.</li>
+</ul>
+
+<p>During the ETL process, the following steps were executed:</p>
+
+<ul>
+  <li><strong>Elimination of unnecessary sheets:</strong> All sheets other than "Channel" were eliminated.</li>
+  <li><strong>Data transformations:</strong> Various transformations were applied to eliminate outliers and misleading values from the dataset, including:</li>
+    <ul>
+      <li>Deletion of logs with negative time variables.</li>
+      <li>Removal of the current spike during the constant current (CC) to constant voltage (CV) charging phase.</li>
+      <li>Elimination of significant differences between consecutive current values.</li>
+      <li>Removal of cycles with significantly different capacities compared to neighboring cycles.</li>
+    </ul>
+</ul>
+
+<p>This process prepared the dataset for subsequent analysis by removing irrelevant data and ensuring the coherence and reliability of the remaining data.</p>
+
+<h2>ETL and HI Processing Code</h2>
+
+<p>The code described in <code>preprocessing/etl</code> and <code>preprocessing/hi</code> will generate two pairs of files for each dataset:</p>
+
+<ul>
+  <li>A first file related to charge data, containing values associated with step indices 2 and 4 for each cycle.</li>
+  <li>A second file related to discharge data, containing values related to step index 7 for each cycle.</li>
+</ul>
+
+<p>This subdivision was adopted to simplify subsequent processing phases, particularly for calculating health indicators and streamline State of Health (SOH) calculation.</p>
+
+<p>The resulting files allowed us to create graphs to visualize the trends of voltage and current, focusing on the cycles of interest. The analysis of the obtained graphs enables observation of how these trends reflect the state of the art in the field, providing valuable insights into the behavior and performance of the examined system.</p>
+
+<p align="center">
+    <img src="src/img/cs2_35_voltage_trend.png" alt="CS2-35 Voltage trend">
+</p>
+
+<p align="center">
+    <img src="src/img/cs2_35_current_trend.png" alt="CS2-35 Current trend">
+</p>
+
+<h2 id="soh-estimation">State of Health (SOH) Estimation</h2>
+
+<p>In our analysis, we adopt the concept of State of Health (SOH) to assess the integrity of batteries. This crucial parameter is based on the ratio between the current capacity of the battery and its nominal capacity, expressed as a percentage.</p>
+
+<p>Formally:</p>
+
+<p>SOH = C<sub>P</sub>/C<sub>N</sub> × 100</p>
+
+<p>Where C<sub>P</sub> represents the current capacity of the battery, and C<sub>N</sub> is the nominal capacity. In our context, the nominal capacity is set to 1100 mAh, as specified in the CALCE dataset documentation.</p>
+
+<p>To evaluate SOH, we calculated the current capacity both during the charging and discharging phases. This allows us to compare the health status of the battery under these two conditions.</p>
+
+<p>In the graph related to the charging phase, we represent SOH as the difference between the first and last values of the charging capacity for each cycle. This is calculated considering step indices 2 and 4.</p>
+
+<div style="text-align: center;">
+    <img src="src/img/charge_SOH.png" alt="" width="500">
+</div>
+
+<p>Similarly, in the graph related to the discharge phase, we calculate SOH as the difference between the first and last values of the discharge capacity for each cycle. This calculation is performed considering step index 7.</p>
+
+
+<div style="text-align: center;">
+    <img src="src/img/discharge_SOH.png" alt="" width="500">
+</div>
+
+<p>This approach allows us to clearly visualize the trend of the battery's state of health throughout its operational life, both during charging and discharging.</p>
+
+<h2 id="health-indicator-calculation">Calculation of Health Indicators</h2>
+
+<p>Utilizing the reprocessed dataset from the ETL phase, we proceeded with the calculation of health indicators for both voltage and current, as defined in the state of the art.</p>
+
+<p>For each dataset, the code provided in <code>path/codice</code> will generate a pair of CSV files containing the values of health indicators for voltage (HIv) and current (HIi) for each cycle:</p>
+
+<ul>
+  <li>A file with the values of HIv for each cycle.</li>
+  <li>A file with the values of HIi for each cycle.</li>
+</ul>
+
+<p>This separation was adopted to simplify the creation of charts showing the trend of health indicators, as demonstrated in the state of the art. Additionally, considering that in the state of the art, LSTM training initially involves both health indicators and later only with voltage-related health indicators, this division facilitates the process.</p>
+
+<p>The plot related to the values of HIv concerning the number of cycles performed is shown in Figure:</p>
+
+<div style="text-align: center;">
+    <img src="src/img/HIV.png" alt="" width="450">
+</div>
+
+<p>The obtained values have been filtered to eliminate any potential outliers.</p>
+<p>Regarding the trend of HIi, there was no reliance on any state-of-the-art reference, as all related trends are based on the NASA dataset. However, we can visualize the trend of the current Health Indicator concerning the cycles, as shown in Figure.</p>
+
+<div style="text-align: center;">
+    <img src="src/img/HII.png" alt="" width="450">
+</div>
+
+<h1 id="lstm">LSTM</h1>
+
+<p>LSTM, which stands for Long Short-Term Memory, is considered a significant advancement compared to Recurrent Neural Networks (RNNs). While RNNs are limited to "short-term memory," allowing the use of previous information at a specific point in time, LSTM goes further by introducing "long-term memory." This provides more comprehensive access to the history of information, thereby enhancing the learning and decision-making capabilities of neural networks. It's important to note that LSTM shares some features with Gated Recurrent Units (GRUs); both utilize gating mechanisms to manage temporal information in the network.</p>
+
+<h2>Architecture of LSTM</h2>
+
+<p>A typical LSTM unit, illustrated in the figure, consists of a cell, an input gate, an output gate, and a forget gate. Each of these plays a crucial role in regulating the flow of information in the network.</p>
+
+<ul>
+  <li><strong>Cell State:</strong> Represents long-term memory, maintaining a list of past information.</li>
+  <li><strong>Previous Hidden State:</strong> Corresponds to the output from the previous time step, similar to short-term memory.</li>
+  <li><strong>Input Data:</strong> Includes the input value at the current time step.</li>
+</ul>
+
+<p>By integrating these elements, LSTM efficiently manages both short-term and long-term memory, enabling more advanced learning and decision processes in neural networks.</p>
+
+<img src="src/img/lstm_drawio.png" alt="Architecture of LSTM">
+
+<h2 id="lstm-gates">LSTM Gates</h2>
+
+<h3 id="forget-gate">Forget Gate</h3>
+
+<p>The forget gate plays a critical role in determining the relevance of data in the cell state. It evaluates both the previous hidden state and the new input data, generating a vector with elements in the range [0,1] through a sigmoid activation function (σ). Trained to produce values close to 0 for irrelevant data and close to 1 for relevant data, the forget gate's outputs are multiplied by the previous cell state.</p>
+
+<h3 id="input-gate">Input Gate</h3>
+
+<p>The input gate serves a dual function: it assesses whether new information should be retained in the cell state and decides which new information to add. This gate involves two processes. The first process generates a new memory update vector (c̃) by combining the previous hidden state and new input data with a hyperbolic tangent activation function (tanh). This vector determines how much to update each component of the cell state. The second process identifies which components of the new input are worth remembering, given the context of the previous hidden state.</p>
+
+<h3 id="output-gate">Output Gate</h3>
+
+<p>After updating the long-term memory, the output gate determines the new hidden state. It uses the freshly updated cell state, the previous hidden state, and the new input data. The output gate applies the previous hidden state and current input data through a sigmoid-activated network to obtain the filter vector (o(t)).</p>
+
+<p>The new cell state (c(t)) becomes the previous cell state (c(t-1)) for the next LSTM unit, while the new hidden state (h(t)) becomes the previous hidden state (h(t-1)) for the next LSTM unit. This process repeats until all time sequences are processed by the LSTM cells.</p>
+
 
 
 
