@@ -19,7 +19,16 @@ def make_hi(path, file_name):
 
     #integrate voltage through time and convert into Voltage/hour
     for key, group in df_hiv.groupby(cs.c_index):
-        hi_v = simps(group[cs.voltage], x=group[cs.test_time]/3600.0)
+        group[cs.test_time]=group[cs.test_time]/1000.0
+        # t0 = group[cs.test_time].iloc[0]
+        # t1 = group[cs.test_time].iloc[-1]
+        # high = t1 - t0
+        # minor_base = group[cs.voltage].iloc[0]
+        # major_base = group[cs.voltage].iloc[-1]
+        # hi_v = ((major_base + minor_base) * high) / 2
+
+        hi_v = simps(group[cs.voltage], x=group[cs.test_time])
+        # hi_v = np.trapz(group[cs.voltage], x=group[cs.test_time])
         cycle = group[cs.c_index].iloc[0]
 
         row = pd.DataFrame([{'hi_v': hi_v, 'cycle': cycle}])
