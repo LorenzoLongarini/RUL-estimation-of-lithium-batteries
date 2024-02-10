@@ -36,7 +36,7 @@ def make_hi(path, file_name):
 
     #integrate current through time and convert into Current/hour
     for key, group in df_hii.groupby(cs.c_index):
-        hi_i = simps(group[cs.current], x=group[cs.test_time]/3600)
+        hi_i = simps(group[cs.current], x=group[cs.test_time]/1000.0)
         cycle = group[cs.c_index].iloc[0]
         row = pd.DataFrame([{'hi_i': hi_i, 'cycle': cycle}])
         hii = pd.concat([hii, row])
