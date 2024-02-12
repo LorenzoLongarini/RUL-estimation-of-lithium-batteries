@@ -182,3 +182,10 @@ src/dataset/CS2_38/*
 !src/dataset/CS2_36/.gitkeep
 !src/dataset/CS2_37/.gitkeep
 !src/dataset/CS2_38/.gitkeep
+
+
+src/model/*
+!src/model/.gitkeep
+
+
+src/notebook/MackeyGlass_t17.txt

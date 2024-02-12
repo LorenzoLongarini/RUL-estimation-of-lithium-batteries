@@ -2,6 +2,7 @@ from src.preprocessing.etl import merge_files
 import os
 from src.utils import constants as cs
 from src.preprocessing.hi import make_hi
+from src.preprocessing.soh import make_soh
 import pandas as pd
 
 
@@ -19,9 +20,16 @@ def make_his():
         if folder.startswith('charge'):
             make_hi(path=f'{cs.ds_cleaned}/{folder}', file_name=folder)
 
+def make_sohs():
+    ds_root = os.listdir(cs.ds_cleaned)
+    for folder in ds_root:
+        if folder.startswith('charge'):
+            make_soh(file_path=f'{cs.ds_cleaned}/{folder}')
+
 def main():
     # make_files()
-    make_his()
+    # make_his()
+    make_sohs()
     
 
 if __name__ == '__main__':

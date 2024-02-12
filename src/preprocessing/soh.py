@@ -1,38 +1,40 @@
-import os
+# Import data
+
 import pandas as pd
+import os
+import numpy as np
+import matplotlib.pyplot as plt
 from src.utils import constants as cs
 
-def make_soh(path:str='', output_path:str=''):
-    # Charge csv from path and initialize capacities
-    df = pd.read_csv(path)
 
-    capacities = [value[cs.charge_cap].max() for key, value in df.groupby(cs.white_list[1])]
-    initial_capacity = capacities[0]  # Assuming the initial capacity is the first value
+def make_soh(file_path):
+    soh_charge_folder = os.path.abspath(os.path.join(cs.ds_cleaned, '..', 'soh_charge'))
+    df = pd.read_csv(file_path)
 
-    # Calculate SOH as a percentage of the initial capacity
-    soh_values = [capacity / initial_capacity * 100 for capacity in capacities]
+    #take head and tail indexes
+    first_step_index_2 = df[df['Step_Index'] == 2].groupby('Cycle_Index').head(1)
+    last_step_index_4 = df[df['Step_Index'] == 4].groupby('Cycle_Index').tail(1)
 
-    # Create a DataFrame with cycles and SOH values
-    soh_df = pd.DataFrame({'Cycle': df.groupby(cs.white_list[1]).apply(lambda x: x[cs.c_index].max()).values,
-                           'SOH': soh_values})
+    #pick cycle index numbers
+    cycle_indexes2 = first_step_index_2['Cycle_Index'].index
+    cycle_indexes4 = last_step_index_4['Cycle_Index'].index
 
-    # Save the DataFrame to a CSV file
-    soh_df.to_csv(output_path, index=False)
+    #take first and last raw
+    first = np.array([df.iloc[i, 6] for i in cycle_indexes2])
+    last = np.array([df.iloc[i, 6] for i in cycle_indexes4])
 
-# Percorso della cartella contenente i file CSV
-folder_path = "src/dataset/cleaned"
+    #discard invalid cycles
+    valid_cycles = np.where(np.abs(last - first) > 0.01)[0]
+    filtered_vector = (last - first)[valid_cycles]
 
-# Itera attraverso i file nella cartella
-for file_name in os.listdir(folder_path):
-    if file_name.startswith("charge-CS2_") or file_name.startswith("discharge-CS2_"):
-        # Costruisci il percorso completo del file
-        file_path = os.path.join(folder_path, file_name)
+    cs2x_part = file_path.split('-')[1].split('.csv')[0]
 
-        # Crea un nome di output basato sul nome del file
-        output_file_name = f"soh_{file_name}"
-        output_file_path = os.path.join(folder_path, output_file_name)
+    output_csv_path = os.path.join(soh_charge_folder, f'soh-{cs2x_part}.csv')
+    corresponding_cycle_indexes = first_step_index_2['Cycle_Index'].iloc[valid_cycles]
 
-        # Applica la funzione make_soh e salva il file CSV
-        make_soh(file_path, output_file_path)
+    #define new df
+    df_output = pd.DataFrame({'SOH': filtered_vector,
+                              'cycle': corresponding_cycle_indexes})
+    #save df
+    df_output.to_csv(output_csv_path, index=False)
 
-        print(f"File CSV creato con successo: {output_file_path}")
