@@ -161,4 +161,24 @@ cython_debug/
 
 
 # dataset
-*src/dataset
+# !src/dataset/.gitkeep
+src/dataset/cleaned/*
+src/dataset/hi/*
+src/dataset/soh_charge/*
+src/dataset/CS2_33/*
+src/dataset/CS2_34/*
+src/dataset/CS2_35/*
+src/dataset/CS2_36/*
+src/dataset/CS2_37/*
+src/dataset/CS2_38/*
+
+
+!src/dataset/cleaned/.gitkeep
+!src/dataset/hi/.gitkeep
+!src/dataset/soh_charge/.gitkeep
+!src/dataset/CS2_33/.gitkeep
+!src/dataset/CS2_34/.gitkeep
+!src/dataset/CS2_35/.gitkeep
+!src/dataset/CS2_36/.gitkeep
+!src/dataset/CS2_37/.gitkeep
+!src/dataset/CS2_38/.gitkeep
