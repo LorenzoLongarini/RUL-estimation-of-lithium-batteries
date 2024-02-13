@@ -3,11 +3,13 @@
 import pandas as pd
 import os
 import numpy as np
-import matplotlib.pyplot as plt
 from src.utils import constants as cs
 
 
 def make_soh(file_path):
+    #create new folder
+    soh_charge_folder = 'dataset/soh_charge'
+    os.makedirs(soh_charge_folder, exist_ok=True)
     soh_charge_folder = os.path.abspath(os.path.join(cs.ds_cleaned, '..', 'soh_charge'))
     df = pd.read_csv(file_path)
 
@@ -23,12 +25,12 @@ def make_soh(file_path):
     first = np.array([df.iloc[i, 6] for i in cycle_indexes2])
     last = np.array([df.iloc[i, 6] for i in cycle_indexes4])
 
-    #discard invalid cycles
+    #discard invalid values
     valid_cycles = np.where(np.abs(last - first) > 0.01)[0]
     filtered_vector = (last - first)[valid_cycles]
 
-    cs2x_part = file_path.split('-')[1].split('.csv')[0]
 
+    cs2x_part = file_path.split('-')[1].split('.csv')[0]
     output_csv_path = os.path.join(soh_charge_folder, f'soh-{cs2x_part}.csv')
     corresponding_cycle_indexes = first_step_index_2['Cycle_Index'].iloc[valid_cycles]
 
@@ -38,3 +40,16 @@ def make_soh(file_path):
     #save df
     df_output.to_csv(output_csv_path, index=False)
 
+def clear_soh():
+    for file_name in os.listdir(cs.sohcharge_root):
+        file_path = f'{cs.sohcharge_root}/{file_name}'
+        if file_name.startswith('soh'):  
+            df = pd.read_csv(file_path)
+
+            i = len(df['SOH']) - 1
+            while i > 0:
+                difference = abs(df['SOH'].iloc[i] - df['SOH'].iloc[i - 1])
+                if difference > 0.01:
+                    df = df.drop(index=i)
+                i -= 1
+            df.to_csv(file_path, index=False)

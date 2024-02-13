@@ -2,7 +2,7 @@ from src.preprocessing.etl import merge_files
 import os
 from src.utils import constants as cs
 from src.preprocessing.hi import make_hi
-from src.preprocessing.soh import make_soh
+from src.preprocessing.soh import make_soh, clear_soh
 import pandas as pd
 
 
@@ -25,11 +25,14 @@ def make_sohs():
     for folder in ds_root:
         if folder.startswith('charge'):
             make_soh(file_path=f'{cs.ds_cleaned}/{folder}')
+            print('soh completed')
+            # print('soh cleared')
 
 def main():
     # make_files()
     # make_his()
     make_sohs()
+    clear_soh()
     
 
 if __name__ == '__main__':
