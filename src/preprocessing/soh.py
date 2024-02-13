@@ -10,13 +10,17 @@ def make_soh(file_path):
     #create new folder
     soh_charge_folder = 'dataset/soh_charge'
     os.makedirs(soh_charge_folder, exist_ok=True)
+    soh_discharge_folder = 'dataset/soh_discharge'
+    os.makedirs(soh_charge_folder, exist_ok=True)
+
     soh_charge_folder = os.path.abspath(os.path.join(cs.ds_cleaned, '..', 'soh_charge'))
+    soh_discharge_folder = os.path.abspath(os.path.join(cs.ds_cleaned, '..', 'soh_discharge'))
     df = pd.read_csv(file_path)
 
     #take head and tail indexes
     first_step_index_2 = df[df['Step_Index'] == 2].groupby('Cycle_Index').head(1)
     last_step_index_4 = df[df['Step_Index'] == 4].groupby('Cycle_Index').tail(1)
-
+    
     #pick cycle index numbers
     cycle_indexes2 = first_step_index_2['Cycle_Index'].index
     cycle_indexes4 = last_step_index_4['Cycle_Index'].index
