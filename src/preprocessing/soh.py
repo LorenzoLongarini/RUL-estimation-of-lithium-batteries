@@ -7,11 +7,6 @@ from src.utils import constants as cs
 
 
 def make_soh(file_path):
-    #create new folder
-    soh_charge_folder = 'dataset/soh_charge'
-    os.makedirs(soh_charge_folder, exist_ok=True)
-    soh_discharge_folder = 'dataset/soh_discharge'
-    os.makedirs(soh_charge_folder, exist_ok=True)
 
     soh_charge_folder = os.path.abspath(os.path.join(cs.ds_cleaned, '..', 'soh_charge'))
     soh_discharge_folder = os.path.abspath(os.path.join(cs.ds_cleaned, '..', 'soh_discharge'))

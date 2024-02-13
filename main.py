@@ -25,14 +25,26 @@ def make_sohs():
     for folder in ds_root:
         if folder.startswith('charge'):
             make_soh(file_path=f'{cs.ds_cleaned}/{folder}')
-            print('soh completed')
-            # print('soh cleared')
 
 def main():
-    # make_files()
-    # make_his()
+    
+    if (len(os.listdir(cs.ds_cleaned))) < 1:
+        print('cleaning files...')
+        make_files()
+        print('files cleaned')
+
+    print('creating health indicators files...')
+    make_his()
+    print('health indicators files created!')
+
+    print('creating soh files...')
     make_sohs()
+    print('soh files created!')
+
+    print('cleaning soh files...')
     clear_soh()
+    print('soh files cleaned!')
+
     
 
 if __name__ == '__main__':
