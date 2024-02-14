@@ -24,10 +24,17 @@ def make_sohs():
     ds_root = os.listdir(cs.ds_cleaned)
     for folder in ds_root:
         if folder.startswith('charge'):
+            make_soh(file_path=f'{cs.ds_cleaned}/{folder}', charge=True)
+        elif folder.startswith('discharge'):
             make_soh(file_path=f'{cs.ds_cleaned}/{folder}')
 
+def clear_sohs():
+    clear_soh(root=cs.sohcharge_root)
+    clear_soh(root=cs.sohdischarge_root)
+
+
+
 def main():
-    
     if (len(os.listdir(cs.ds_cleaned))) < 1:
         print('cleaning files...')
         make_files()
@@ -42,7 +49,7 @@ def main():
     print('soh files created!')
 
     print('cleaning soh files...')
-    clear_soh()
+    clear_sohs()
     print('soh files cleaned!')
 
     

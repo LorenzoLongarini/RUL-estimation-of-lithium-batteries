@@ -12,6 +12,7 @@ dataset_root:str = 'src/dataset'
 ds_cleaned:str = f'{dataset_root}/cleaned'
 ds_hi:str = f'{dataset_root}/hi'
 sohcharge_root:str = f'{dataset_root}/soh_charge'
+sohdischarge_root:str = f'{dataset_root}/soh_discharge'
 
 index:str = 'Index'
 
