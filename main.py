@@ -2,6 +2,7 @@ from src.preprocessing.etl import merge_files
 import os
 from src.utils import constants as cs
 from src.preprocessing.hi import make_hi
+from src.preprocessing.soh import make_soh, clear_soh
 import pandas as pd
 
 
@@ -19,9 +20,38 @@ def make_his():
         if folder.startswith('charge'):
             make_hi(path=f'{cs.ds_cleaned}/{folder}', file_name=folder)
 
+def make_sohs():
+    ds_root = os.listdir(cs.ds_cleaned)
+    for folder in ds_root:
+        if folder.startswith('charge'):
+            make_soh(file_path=f'{cs.ds_cleaned}/{folder}', charge=True)
+        elif folder.startswith('discharge'):
+            make_soh(file_path=f'{cs.ds_cleaned}/{folder}')
+
+def clear_sohs():
+    clear_soh(root=cs.sohcharge_root)
+    clear_soh(root=cs.sohdischarge_root)
+
+
+
 def main():
-    # make_files()
+    if (len(os.listdir(cs.ds_cleaned))) < 1:
+        print('cleaning files...')
+        make_files()
+        print('files cleaned')
+
+    print('creating health indicators files...')
     make_his()
+    print('health indicators files created!')
+
+    print('creating soh files...')
+    make_sohs()
+    print('soh files created!')
+
+    print('cleaning soh files...')
+    clear_sohs()
+    print('soh files cleaned!')
+
     
 
 if __name__ == '__main__':
