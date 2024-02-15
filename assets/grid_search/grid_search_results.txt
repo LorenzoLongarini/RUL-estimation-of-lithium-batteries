@@ -1,0 +1,14 @@
+Best parameters:
+{'activation': 'relu', 'batch_size': 128, 'optimizer': 'adam', 'units': 128}
+Best score:
+-8.100629302175212e-05
+
+All results:
+{'activation': 'relu', 'batch_size': 64, 'optimizer': 'adam', 'units': 128}: -0.00011400269147785907 (+/- 5.471463681895302e-05)
+{'activation': 'relu', 'batch_size': 64, 'optimizer': 'adam', 'units': 256}: -0.00011504482764862756 (+/- 3.0464867844495287e-05)
+{'activation': 'relu', 'batch_size': 128, 'optimizer': 'adam', 'units': 128}: -8.100629302175212e-05 (+/- 1.8311506991175524e-05)
+{'activation': 'relu', 'batch_size': 128, 'optimizer': 'adam', 'units': 256}: -9.496366036262914e-05 (+/- 3.572296156633553e-05)
+{'activation': 'tanh', 'batch_size': 64, 'optimizer': 'adam', 'units': 128}: -0.000122236376376201 (+/- 3.7012188825507257e-05)
+{'activation': 'tanh', 'batch_size': 64, 'optimizer': 'adam', 'units': 256}: -0.0001427777357999862 (+/- 9.066302207967082e-05)
+{'activation': 'tanh', 'batch_size': 128, 'optimizer': 'adam', 'units': 128}: -0.00011448816468654552 (+/- 2.2488208029148946e-05)
+{'activation': 'tanh', 'batch_size': 128, 'optimizer': 'adam', 'units': 256}: -0.0002148989182060808 (+/- 9.501606171623259e-05)
